@@ -43,10 +43,16 @@ class AppModel(models.Model):
     verbose_name = models.CharField(max_length=150)
     description = models.TextField(blank=True)
     app_label = models.CharField(max_length=100)
-
+    
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            base_slug = slugify(self.name)
+            unique_slug = base_slug
+            counter = 1
+            while AppModel.objects.filter(slug=unique_slug).exists():
+                unique_slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = unique_slug or str(uuid.uuid4())
         super().save(*args, **kwargs)
     
     def __str__(self):

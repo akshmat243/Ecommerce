@@ -1,8 +1,8 @@
 from MBP.views import ProtectedModelViewSet
 from .models import Cart, CartItem, Order, OrderItem
 from .serializers import CartSerializer, CartItemSerializer, OrderSerializer, OrderItemSerializer
-from .models import Payment, Refund, Invoice
-from .serializers import PaymentSerializer, RefundSerializer, InvoiceSerializer
+from .models import Payment, Refund, OrderInvoice
+from .serializers import PaymentSerializer, RefundSerializer, OrderInvoiceSerializer
 
 
 class CartViewSet(ProtectedModelViewSet):
@@ -49,7 +49,7 @@ class RefundViewSet(ProtectedModelViewSet):
 
 
 class InvoiceViewSet(ProtectedModelViewSet):
-    queryset = Invoice.objects.select_related("order").all()
-    serializer_class = InvoiceSerializer
-    model_name = "Invoice"
+    queryset = OrderInvoice.objects.select_related("order").all()
+    serializer_class = OrderInvoiceSerializer
+    model_name = "OrderInvoice"
     lookup_field = "slug"

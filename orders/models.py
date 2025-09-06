@@ -235,7 +235,7 @@ class Refund(models.Model):
 
 
 
-class Invoice(models.Model):
+class OrderInvoice(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
 

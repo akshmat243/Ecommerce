@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Customer, SalesOrder, SalesOrderItem, Payment, Shipment, Invoice
+from .models import Customer, SalesOrder, SalesOrderItem, SalesPayment, SalesShipment, SalesInvoice
 from catalog.models import Product
 from inventory.models import Warehouse
 
@@ -69,7 +69,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     order = serializers.SlugRelatedField(queryset=SalesOrder.objects.all(), slug_field="slug")
 
     class Meta:
-        model = Payment
+        model = SalesPayment
         fields = ["id", "slug", "order", "payment_date", "amount", "method", "transaction_id"]
         read_only_fields = ["id", "slug", "payment_date"]
 
@@ -80,7 +80,7 @@ class ShipmentSerializer(serializers.ModelSerializer):
     warehouse = serializers.SlugRelatedField(queryset=Warehouse.objects.all(), slug_field="slug")
 
     class Meta:
-        model = Shipment
+        model = SalesShipment
         fields = [
             "id", "order", "warehouse", "tracking_number", "carrier",
             "status", "shipped_date", "delivered_date"
@@ -94,6 +94,6 @@ class InvoiceSerializer(serializers.ModelSerializer):
     order = serializers.SlugRelatedField(queryset=SalesOrder.objects.all(), slug_field="slug")
 
     class Meta:
-        model = Invoice
+        model = SalesInvoice
         fields = ["id", "slug", "order", "invoice_date", "total_amount", "due_date", "is_paid"]
         read_only_fields = ["id", "slug", "invoice_date"]

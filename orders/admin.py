@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cart, CartItem, Order, OrderItem
+from .models import Cart, CartItem, Order, OrderItem, Payment, Refund, OrderInvoice
 
 
 @admin.register(Cart)
@@ -36,9 +36,6 @@ class OrderItemAdmin(admin.ModelAdmin):
     list_filter = ("created_at", "product")
     readonly_fields = ("subtotal", "created_at")
 
-from django.contrib import admin
-from .models import Payment, Refund, Invoice
-
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
@@ -59,7 +56,7 @@ class RefundAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at")
 
 
-@admin.register(Invoice)
+@admin.register(OrderInvoice)
 class InvoiceAdmin(admin.ModelAdmin):
     list_display = ("id", "slug", "invoice_number", "order", "amount", "issued_date", "due_date", "created_at")
     search_fields = ("slug", "invoice_number", "order__slug")

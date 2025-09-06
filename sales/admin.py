@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer, SalesOrder, SalesOrderItem, Payment, Shipment, Invoice
+from .models import Customer, SalesOrder, SalesOrderItem, SalesPayment, SalesShipment, SalesInvoice
 
 
 # ---------------- Customer ----------------
@@ -38,7 +38,7 @@ class SalesOrderItemAdmin(admin.ModelAdmin):
 
 
 # ---------------- Payment ----------------
-@admin.register(Payment)
+@admin.register(SalesPayment)
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ("transaction_id", "order", "amount", "method", "payment_date")
     search_fields = ("transaction_id", "order__id", "order__customer__email")
@@ -48,7 +48,7 @@ class PaymentAdmin(admin.ModelAdmin):
 
 
 # ---------------- Shipment ----------------
-@admin.register(Shipment)
+@admin.register(SalesShipment)
 class ShipmentAdmin(admin.ModelAdmin):
     list_display = ("tracking_number", "order", "warehouse", "carrier", "status", "shipped_date", "delivered_date")
     search_fields = ("tracking_number", "order__id", "carrier")
@@ -57,7 +57,7 @@ class ShipmentAdmin(admin.ModelAdmin):
 
 
 # ---------------- Invoice ----------------
-@admin.register(Invoice)
+@admin.register(SalesInvoice)
 class InvoiceAdmin(admin.ModelAdmin):
     list_display = ("order", "invoice_date", "total_amount", "due_date", "is_paid")
     search_fields = ("order__id", "order__customer__email")

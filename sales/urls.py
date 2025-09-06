@@ -11,7 +11,7 @@ router.register(r'orders', SalesOrderViewSet, basename='salesorder')
 router.register(r'order-items', SalesOrderItemViewSet, basename='salesorderitem')
 router.register(r'payments', PaymentViewSet, basename='payment')
 router.register(r'shipments', ShipmentViewSet, basename='shipment')
-router.register(r'invoices', InvoiceViewSet, basename='invoice')
+router.register(r'order-invoices', InvoiceViewSet, basename='invoice')
 
 urlpatterns = [
     path("api/", include(router.urls)),

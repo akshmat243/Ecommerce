@@ -1,5 +1,5 @@
 from MBP.views import ProtectedModelViewSet
-from .models import Customer, SalesOrder, SalesOrderItem, Payment, Shipment, Invoice
+from .models import Customer, SalesOrder, SalesOrderItem, SalesPayment, SalesShipment, SalesInvoice
 from .serializers import (
     CustomerSerializer, SalesOrderSerializer, SalesOrderItemSerializer,
     PaymentSerializer, ShipmentSerializer, InvoiceSerializer
@@ -32,23 +32,23 @@ class SalesOrderItemViewSet(ProtectedModelViewSet):
 
 # ------------------ Payment ------------------
 class PaymentViewSet(ProtectedModelViewSet):
-    queryset = Payment.objects.select_related("order").all().order_by("-payment_date")
+    queryset = SalesPayment.objects.select_related("order").all().order_by("-payment_date")
     serializer_class = PaymentSerializer
-    model_name = "Payment"
+    model_name = "SalesPayment"
     lookup_field = "slug"
 
 
 # ------------------ Shipment ------------------
 class ShipmentViewSet(ProtectedModelViewSet):
-    queryset = Shipment.objects.select_related("order", "warehouse").all()
+    queryset = SalesShipment.objects.select_related("order", "warehouse").all()
     serializer_class = ShipmentSerializer
-    model_name = "Shipment"
+    model_name = "SalesShipment"
     lookup_field = "tracking_number"
 
 
 # ------------------ Invoice ------------------
 class InvoiceViewSet(ProtectedModelViewSet):
-    queryset = Invoice.objects.select_related("order").all().order_by("-invoice_date")
+    queryset = SalesInvoice.objects.select_related("order").all().order_by("-invoice_date")
     serializer_class = InvoiceSerializer
-    model_name = "Invoice"
+    model_name = "SalesInvoice"
     lookup_field = "slug"

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Cart, CartItem, Order, OrderItem, Payment, Refund, Invoice
+from .models import Cart, CartItem, Order, OrderItem, Payment, Refund, OrderInvoice
 from catalog.models import Product, Variant
 
 
@@ -124,11 +124,11 @@ class RefundSerializer(serializers.ModelSerializer):
         return value
 
 
-class InvoiceSerializer(serializers.ModelSerializer):
+class OrderInvoiceSerializer(serializers.ModelSerializer):
     order_slug = serializers.CharField(source="order.slug", read_only=True)
 
     class Meta:
-        model = Invoice
+        model = OrderInvoice
         fields = [
             "id", "slug", "order", "order_slug", "invoice_number",
             "amount", "issued_date", "due_date", "created_at"

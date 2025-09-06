@@ -70,7 +70,7 @@ class SalesOrderItem(models.Model):
         return f"{self.product} ({self.quantity})"
 
 
-class Payment(models.Model):
+class SalesPayment(models.Model):
     METHOD_CHOICES = [
         ('credit_card', 'Credit Card'),
         ('debit_card', 'Debit Card'),
@@ -96,7 +96,7 @@ class Payment(models.Model):
         return f"Payment {self.transaction_id} - {self.amount}"
 
 
-class Shipment(models.Model):
+class SalesShipment(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('in_transit', 'In Transit'),
@@ -117,7 +117,7 @@ class Shipment(models.Model):
         return f"Shipment {self.tracking_number} - {self.status}"
 
 
-class Invoice(models.Model):
+class SalesInvoice(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     slug = models.SlugField(unique=True, blank=True)
     order = models.OneToOneField(SalesOrder, on_delete=models.CASCADE, related_name="invoice")
